@@ -1,0 +1,79 @@
+<form name="editForm" role="form" novalidate (ngSubmit)="save()" #editForm="ngForm">
+
+    <div class="modal-header">
+        <h4 class="modal-title" id="myPositionLabel">Create or edit a Position</h4>
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"
+                (click)="clear()">&times;</button>
+    </div>
+    <div class="modal-body">
+        <jhi-alert-error></jhi-alert-error>
+        <div class="form-group" [hidden]="!position.id">
+            <label for="id">ID</label>
+            <input type="text" class="form-control" id="id" name="id"
+                   [(ngModel)]="position.id" readonly />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" for="field_asset">Asset</label>
+            <input type="text" class="form-control" name="asset" id="field_asset"
+                [(ngModel)]="position.asset" required />
+            <div [hidden]="!(editForm.controls.asset?.dirty && editForm.controls.asset?.invalid)">
+                <small class="form-text text-danger"
+                   [hidden]="!editForm.controls.asset?.errors?.required">
+                   This field is required.
+                </small>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" for="field_buyAt">Buy At</label>
+            <div class="input-group">
+                <input id="field_buyAt" type="text" class="form-control" name="buyAt" ngbDatepicker  #buyAtDp="ngbDatepicker" [(ngModel)]="position.buyAt"
+                />
+                <span class="input-group-btn">
+                    <button type="button" class="btn btn-default" (click)="buyAtDp.toggle()"><i class="fa fa-calendar"></i></button>
+                </span>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" for="field_sellAt">Sell At</label>
+            <div class="input-group">
+                <input id="field_sellAt" type="text" class="form-control" name="sellAt" ngbDatepicker  #sellAtDp="ngbDatepicker" [(ngModel)]="position.sellAt"
+                />
+                <span class="input-group-btn">
+                    <button type="button" class="btn btn-default" (click)="sellAtDp.toggle()"><i class="fa fa-calendar"></i></button>
+                </span>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" for="field_entryValue">Entry Value</label>
+            <input type="number" class="form-control" name="entryValue" id="field_entryValue"
+                [(ngModel)]="position.entryValue"  />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" for="field_exitValue">Exit Value</label>
+            <input type="number" class="form-control" name="exitValue" id="field_exitValue"
+                [(ngModel)]="position.exitValue"  />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" for="field_operationType">Operation Type</label>
+            <select class="form-control" name="operationType" [(ngModel)]="position.operationType" id="field_operationType"  required>
+                <option value="SHORT">SHORT</option>
+                <option value="LONG">LONG</option>
+            </select>
+            <div [hidden]="!(editForm.controls.operationType?.dirty && editForm.controls.operationType?.invalid)">
+                <small class="form-text text-danger"
+                   [hidden]="!editForm.controls.operationType?.errors?.required">
+                   This field is required.
+                </small>
+            </div>
+        </div>
+
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal" (click)="clear()">
+            <span class="fa fa-ban"></span>&nbsp;<span>Cancel</span>
+        </button>
+        <button type="submit" [disabled]="editForm.form.invalid || isSaving" class="btn btn-primary">
+            <span class="fa fa-save"></span>&nbsp;<span>Save</span>
+        </button>
+    </div>
+</form>

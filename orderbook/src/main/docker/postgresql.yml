@@ -1,0 +1,11 @@
+version: '2'
+services:
+    orderbook-postgresql:
+        image: postgres:9.6.2
+        # volumes:
+        #     - ~/volumes/jhipster/orderbook/postgresql/:/var/lib/postgresql/data/
+        environment:
+            - POSTGRES_USER=orderbook
+            - POSTGRES_PASSWORD=
+        ports:
+            - 5432:5432

@@ -1,0 +1,61 @@
+version: '2'
+services:
+    gateway-app:
+        image: gateway
+        environment:
+            - SPRING_PROFILES_ACTIVE=prod,swagger
+            - EUREKA_CLIENT_SERVICE_URL_DEFAULTZONE=http://admin:$${jhipster.registry.password}@jhipster-registry:8761/eureka
+            - SPRING_CLOUD_CONFIG_URI=http://admin:$${jhipster.registry.password}@jhipster-registry:8761/config
+            - SPRING_DATASOURCE_URL=jdbc:postgresql://gateway-postgresql:5432/gateway
+            - JHIPSTER_SLEEP=30
+            - JHIPSTER_METRICS_PROMETHEUS_ENABLED=true
+            - JHIPSTER_METRICS_PROMETHEUS_ENDPOINT=/prometheusMetrics
+            - JHIPSTER_REGISTRY_PASSWORD=admin
+        ports:
+            - 8080:8080
+    gateway-postgresql:
+        image: postgres:9.6.2
+        environment:
+            - POSTGRES_USER=gateway
+            - POSTGRES_PASSWORD=
+    
+    orderbook-app:
+        image: orderbook
+        environment:
+            - SPRING_PROFILES_ACTIVE=prod,swagger
+            - EUREKA_CLIENT_SERVICE_URL_DEFAULTZONE=http://admin:$${jhipster.registry.password}@jhipster-registry:8761/eureka
+            - SPRING_CLOUD_CONFIG_URI=http://admin:$${jhipster.registry.password}@jhipster-registry:8761/config
+            - SPRING_DATASOURCE_URL=jdbc:postgresql://orderbook-postgresql:5432/orderbook
+            - JHIPSTER_SLEEP=30
+            - JHIPSTER_METRICS_PROMETHEUS_ENABLED=true
+            - JHIPSTER_METRICS_PROMETHEUS_ENDPOINT=/prometheusMetrics
+            - JHIPSTER_REGISTRY_PASSWORD=admin
+    orderbook-postgresql:
+        image: postgres:9.6.2
+        environment:
+            - POSTGRES_USER=orderbook
+            - POSTGRES_PASSWORD=
+    
+    jhipster-registry:
+        extends:
+            file: jhipster-registry.yml
+            service: jhipster-registry
+
+    prometheus:
+        extends:
+            file: prometheus.yml
+            service: prometheus
+
+    alertmanager:
+        extends:
+            file: prometheus.yml
+            service: alertmanager
+
+    grafana:
+        extends:
+            file: prometheus.yml
+            service: grafana
+
+volumes:
+    prometheus_data: {}
+    grafana_data: {}

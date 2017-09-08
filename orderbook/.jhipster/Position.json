@@ -1,0 +1,45 @@
+{
+    "fluentMethods": true,
+    "relationships": [],
+    "fields": [
+        {
+            "fieldName": "asset",
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "required"
+            ]
+        },
+        {
+            "fieldName": "buyAt",
+            "fieldType": "LocalDate"
+        },
+        {
+            "fieldName": "sellAt",
+            "fieldType": "LocalDate"
+        },
+        {
+            "fieldName": "entryValue",
+            "fieldType": "Double"
+        },
+        {
+            "fieldName": "exitValue",
+            "fieldType": "Double"
+        },
+        {
+            "fieldName": "operationType",
+            "fieldType": "OperationType",
+            "fieldValues": "SHORT,LONG",
+            "fieldValidateRules": [
+                "required"
+            ]
+        }
+    ],
+    "changelogDate": "20170907165621",
+    "dto": "mapstruct",
+    "service": "serviceClass",
+    "entityTableName": "position",
+    "jpaMetamodelFiltering": true,
+    "pagination": "no",
+    "microserviceName": "orderbook",
+    "searchEngine": false
+}

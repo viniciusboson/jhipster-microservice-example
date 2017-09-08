@@ -1,0 +1,13 @@
+{
+  "generator-jhipster": {
+    "appsFolders": [
+      "gateway",
+      "orderbook"
+    ],
+    "directoryPath": "../",
+    "monitoring": "prometheus",
+    "serviceDiscoveryType": "eureka",
+    "adminPassword": "admin",
+    "jwtSecretKey": "45c3ee2e52b2c0a23853c53d6daeafdf91578f8e"
+  }
+}
